@@ -1,0 +1,4 @@
+node_modules
+dist
+.pylibs
+.DS_Store
