@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "name": "作品集网站制作",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "task.allowAutomaticTasks": "on"
+  }
+}

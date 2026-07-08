@@ -1,0 +1,117 @@
+html,
+body {
+  margin: 0;
+  background: transparent;
+}
+
+.trust-phone {
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+  aspect-ratio: 472 / 1024;
+}
+
+.trust-view {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: translate3d(100%, 0, 0);
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    transform 0.34s cubic-bezier(0.36, 0.66, 0.04, 1),
+    visibility 0s linear 0.34s;
+  will-change: transform;
+}
+
+.trust-view--pdp.trust-view--active {
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+  transition:
+    transform 0.34s cubic-bezier(0.36, 0.66, 0.04, 1),
+    visibility 0s;
+}
+
+.trust-view--pdp.trust-view--under {
+  transform: translate3d(-26%, 0, 0);
+  visibility: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.trust-view--sub {
+  box-shadow: -6px 0 18px rgba(15, 23, 42, 0.07);
+}
+
+.trust-view--sub.trust-view--active {
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 3;
+  transition:
+    transform 0.34s cubic-bezier(0.36, 0.66, 0.04, 1),
+    visibility 0s;
+}
+
+.trust-view--sub.trust-view--exit {
+  transform: translate3d(100%, 0, 0);
+  visibility: visible;
+  pointer-events: none;
+  z-index: 3;
+  transition:
+    transform 0.34s cubic-bezier(0.36, 0.66, 0.04, 1),
+    visibility 0s linear 0.34s;
+}
+
+.trust-stage {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+}
+
+.trust-screen {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* 热区 · 与用户标注对齐，圆环靠右 */
+.trust-hotspot--merchant {
+  top: 15.2%;
+  left: 68%;
+  width: 28%;
+  height: 9.2%;
+}
+
+.trust-hotspot--reviews {
+  top: 32.8%;
+  left: 37%;
+  width: 13%;
+  height: 3.6%;
+}
+
+.trust-hotspot--gallery {
+  top: 63%;
+  left: 70%;
+  width: 24%;
+  height: 2.6%;
+}
+
+.trust-hotspot--back {
+  top: 7%;
+  left: 0;
+  width: 13%;
+  height: 5.4%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-view {
+    transition: none;
+  }
+}
