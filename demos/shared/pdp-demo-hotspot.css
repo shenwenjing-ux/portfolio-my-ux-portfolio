@@ -1,0 +1,81 @@
+/* 全站 Demo 热区 · 右侧圆环 + 呼吸动效（默认隐藏，播放/hover 时显现） */
+
+@keyframes pdp-demo-ring-breathe {
+  0%,
+  100% {
+    border-color: rgba(255, 51, 117, 0.38);
+    box-shadow: 0 0 0 3px rgba(255, 51, 117, 0.07);
+    transform: translateY(-50%) scale(1);
+  }
+
+  50% {
+    border-color: rgba(255, 51, 117, 0.52);
+    box-shadow: 0 0 0 6px rgba(255, 51, 117, 0.04);
+    transform: translateY(-50%) scale(1.08);
+  }
+}
+
+.pdp-demo-hotspot {
+  position: absolute;
+  z-index: 6;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 10px;
+  pointer-events: auto;
+  box-shadow: none;
+  outline: none;
+  --pdp-ring-size: 24px;
+  --pdp-ring-offset-x: 6px;
+}
+
+.pdp-demo-hotspot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: var(--pdp-ring-offset-x);
+  width: var(--pdp-ring-size);
+  height: var(--pdp-ring-size);
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  box-shadow: none;
+  transform: translateY(-50%);
+  transition: opacity 0.28s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pdp-demo-hotspot--ring-left::after {
+  right: auto;
+  left: var(--pdp-ring-offset-x);
+}
+
+.pdp-demo-hotspot--ring-compact {
+  --pdp-ring-size: 20px;
+  --pdp-ring-offset-x: 4px;
+}
+
+.pdp-demo-hotspot--no-ring::after {
+  display: none;
+}
+
+.pdp-demo-hotspot.is-active::after,
+.pdp-demo-hotspot:focus-visible::after,
+.pdp-demo-hotspot:hover::after {
+  opacity: 1;
+  border-color: rgba(255, 51, 117, 0.38);
+  box-shadow: 0 0 0 3px rgba(255, 51, 117, 0.07);
+}
+
+.pdp-demo-hotspot.is-active::after {
+  animation: pdp-demo-ring-breathe 1.85s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdp-demo-hotspot::after {
+    transition: none;
+    animation: none !important;
+  }
+}

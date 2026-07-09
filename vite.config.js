@@ -1,11 +1,9 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: './',
+  // /https://github.com/shenwenjing-ux/portfolio-my-ux-portfolio.git/
+  base: '/portfolio-my-ux-portfolio/',
   server: {
-    host: '127.0.0.1',
-    port: 5173,
-    strictPort: true,
-    open: '/#pdp-redesign',
-  },
-});
+    port: 5173
+  }
+})

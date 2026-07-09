@@ -1,0 +1,173 @@
+{
+  "before": {
+    "version": "before",
+    "regions": {
+      "l0-hero": {
+        "top": 1.95,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 43.07
+      },
+      "l1-price": {
+        "top": 45.41,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.5
+      },
+      "l1-title": {
+        "top": 52.91,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.5
+      },
+      "l2-attrs": {
+        "top": 60.4,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.5
+      },
+      "l1-inline-cta": {
+        "top": 67.9,
+        "left": 64.65,
+        "width": 31.12,
+        "height": 7.5
+      },
+      "l2-sales-inline": {
+        "top": 67.9,
+        "left": 34.44,
+        "width": 31.12,
+        "height": 7.5
+      },
+      "l2-promo-card": {
+        "top": 75.78,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.03
+      },
+      "l2-reviews": {
+        "top": 83.2,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.03
+      },
+      "l3-longtail": {
+        "top": 90.62,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.42
+      }
+    },
+    "height": 1024,
+    "width": 472
+  },
+  "after": {
+    "version": "after",
+    "regions": {
+      "l0-hero": {
+        "top": 1.95,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 43.07
+      },
+      "l1-price": {
+        "top": 45.41,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 9.2
+      },
+      "l1-promo": {
+        "top": 54.61,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 9.2
+      },
+      "l1-title": {
+        "top": 63.82,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 9.2
+      },
+      "l2-trust": {
+        "top": 73.02,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 9.2
+      },
+      "l2-delivery": {
+        "top": 82.62,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.42
+      },
+      "l1-sticky-cta": {
+        "top": 90.43,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.62
+      },
+      "l3-longtail": {
+        "top": 90.43,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.62
+      }
+    },
+    "height": 1024,
+    "width": 472
+  },
+  "afterLongtail": {
+    "version": "after-longtail",
+    "regions": {
+      "l0-hero": {
+        "top": 1.95,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 43.07
+      },
+      "l1-price": {
+        "top": 45.41,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.5
+      },
+      "l1-promo": {
+        "top": 52.91,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.5
+      },
+      "l1-title": {
+        "top": 60.4,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.5
+      },
+      "l2-trust": {
+        "top": 67.9,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.5
+      },
+      "l2-delivery": {
+        "top": 75.78,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.03
+      },
+      "l2-reviews": {
+        "top": 83.2,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.03
+      },
+      "l3-longtail": {
+        "top": 90.62,
+        "left": 4.24,
+        "width": 91.53,
+        "height": 7.42
+      }
+    },
+    "height": 1024,
+    "width": 472
+  }
+}
