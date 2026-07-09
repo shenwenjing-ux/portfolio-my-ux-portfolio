@@ -1,4 +1,13 @@
-import { site, catalog, projects } from './data/portfolio.js';
+import {
+  site as rawSite,
+  catalog as rawCatalog,
+  projects as rawProjects,
+} from './data/portfolio.js';
+import { assetUrl, resolveAssetPaths } from './utils/assetUrl.js';
+
+const site = resolveAssetPaths(rawSite);
+const catalog = resolveAssetPaths(rawCatalog);
+const projects = resolveAssetPaths(rawProjects);
 import {
   bindPdpFlowersPdpDemo,
   renderPdpFlowersPdpDemo,
@@ -1583,7 +1592,8 @@ function renderPdpSchemeDanmaku(danmaku) {
   const pillLineHeightPx = danmaku.pillLineHeightPx ?? 34;
   const imageLineHeightPx = danmaku.imageLineHeightPx ?? danmaku.lineHeightPx ?? 30;
   const segmentOffsetYPx = danmaku.segmentOffsetYPx ?? 0;
-  const bubbleIcon = danmaku.bubbleIcon || '/images/projects/pdp-p1-scheme-danmaku-bubble.png';
+  const bubbleIcon =
+    danmaku.bubbleIcon || assetUrl('/images/projects/pdp-p1-scheme-danmaku-bubble.png');
   const hasImageItems = danmaku.items.some(isImageDanmakuItem);
   const hasPillItems = danmaku.items.some((item) => !isImageDanmakuItem(item));
   const maxItemHeightPx = hasImageItems
@@ -4064,7 +4074,7 @@ function renderPdpResultVoiceQuote(voice, index) {
   const avatar =
     typeof voice === 'object' && voice.avatar
       ? voice.avatar
-      : `/images/projects/pdp-insight-avatars/avatar-${(index % 8) + 1}.jpg`;
+      : assetUrl(`/images/projects/pdp-insight-avatars/avatar-${(index % 8) + 1}.jpg`);
   const stagger = index % 3;
 
   return `

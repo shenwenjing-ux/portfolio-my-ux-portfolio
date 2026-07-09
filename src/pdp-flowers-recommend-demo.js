@@ -1,6 +1,7 @@
 /** 鲜花商详 · 同店推荐切换 demo（750 设计稿 · 容器宽度自适应） */
 
 import { renderMockupImg } from './pdp-mockup-image.js';
+import { assetUrl } from './utils/assetUrl.js';
 
 const REC_DESIGN_W = 750;
 const REC_DESIGN_H = 1024;
@@ -150,8 +151,11 @@ export function renderPdpFlowersRecommendDemo(demo) {
   const tabsTopRatio = toY(tabsTop);
   const recTopRatio = toY(recTop);
 
-  const statusBarSrc = chrome.statusBar || '/images/projects/pdp-p2-chrome-status-bar.png';
-  const topNavSrc = chrome.topNav || chrome.topNavDefault || '/images/projects/pdp-p2-chrome-top-nav-default.png?v=6';
+  const statusBarSrc = chrome.statusBar || assetUrl('/images/projects/pdp-p2-chrome-status-bar.png');
+  const topNavSrc =
+    chrome.topNav ||
+    chrome.topNavDefault ||
+    assetUrl('/images/projects/pdp-p2-chrome-top-nav-default.png?v=6');
   const navAspectW = chrome.navAspectW ?? layout.navAspectW ?? 472;
   const navAspectH = chrome.navAspectH ?? layout.navAspectH ?? 67;
 
