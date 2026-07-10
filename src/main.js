@@ -78,6 +78,36 @@ function renderMiniMetric(m) {
   `;
 }
 
+function renderCatalogCover(project) {
+  if (project.id === 'pdp-redesign' && project.heroShowcase?.length >= 2) {
+    const deviceClasses = ['catalog-card__device--food', 'catalog-card__device--flowers'];
+    return `
+      <div class="catalog-card__cover-showcase catalog-card__cover-showcase--pdp">
+        <div class="catalog-card__cover-showcase-bg" aria-hidden="true">
+          <span class="catalog-card__orb catalog-card__orb--pink"></span>
+          <span class="catalog-card__orb catalog-card__orb--warm"></span>
+          <span class="catalog-card__orb catalog-card__orb--accent-soft"></span>
+        </div>
+        ${project.heroShowcase
+          .slice(0, 2)
+          .map(
+            (item, index) => `
+          <figure class="catalog-card__device ${deviceClasses[index] || ''}">
+            <img src="${item.src}" alt="${item.alt}" loading="lazy" />
+          </figure>`,
+          )
+          .join('')}
+      </div>
+    `;
+  }
+
+  if (project.cover) {
+    return `<img src="${project.cover}" alt="${project.title}" loading="lazy" />`;
+  }
+
+  return `<div class="catalog-card__cover-placeholder"><span>Case 03</span></div>`;
+}
+
 function renderMetricStat(m) {
   const trendIcon = m.trend === 'up' ? '↑' : m.trend === 'down' ? '↓' : '';
   return `
@@ -4552,12 +4582,8 @@ function renderCatalog() {
               const isPlaceholder = project.placeholder;
               return `
             <a href="#${group.id}" class="catalog-card reveal ${isPlaceholder ? 'catalog-card--placeholder' : ''}" style="--delay: ${i * 0.1}s">
-              <div class="catalog-card__cover">
-                ${
-                  project.cover
-                    ? `<img src="${project.cover}" alt="${project.title}" loading="lazy" />`
-                    : `<div class="catalog-card__cover-placeholder"><span>Case 03</span></div>`
-                }
+              <div class="catalog-card__cover${project.id === 'pdp-redesign' ? ' catalog-card__cover--pdp-showcase' : ''}">
+                ${renderCatalogCover(project)}
                 <div class="catalog-card__overlay">
                   <span>${isPlaceholder ? '敬请期待' : '查看详情'}</span>
                 </div>
