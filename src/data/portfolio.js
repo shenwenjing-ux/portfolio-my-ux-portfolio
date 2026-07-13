@@ -642,6 +642,17 @@ export const projects = [
     heroTags: ['全品类通用', '品类差异化', '转化基线提升'],
     summary:
       '从「一套模板打全品类」升级为「全品类通用 + 品类差异化」两期策略，一期建立统一基线，二期聚焦非食品类（鲜花、数码）专项优化。',
+    metricGroups: [
+      {
+        title: '商详二期',
+        columns: 3,
+        metrics: [
+          { label: '整体进店访购率', text: '+0.05pp', trend: 'up' },
+          { label: '商家至商详转化率', text: '+0.4pp', trend: 'up' },
+          { label: '加购率', text: '+0.02pp', trend: 'up' },
+        ],
+      },
+    ],
     background:
       '闪购商详是用户下单决策的核心页面，承载全品类商品交易转化。原有商详采用统一模板，信息层级与模块优先级难以兼顾食品与非食等不同品类的购买心智，导致关键决策信息传递效率不足、转化表现存在品类间差异。',
     backgroundPanel: {
