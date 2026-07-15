@@ -3,7 +3,7 @@ import {
   catalog as rawCatalog,
   projects as rawProjects,
 } from './data/portfolio.js';
-import { assetUrl, ensureTrailingSlash, resolveAssetPaths } from './utils/assetUrl.js';
+import { assetUrl, bindAssetImageRetry, ensureTrailingSlash, resolveAssetPaths } from './utils/assetUrl.js';
 import {
   bindPdpFlowersPdpDemo,
   renderPdpFlowersPdpDemo,
@@ -4636,6 +4636,7 @@ function render() {
     ${renderFooter()}
   `;
   bindEvents();
+  bindAssetImageRetry(app);
   safeInit('bindPdpDesignSlots', bindPdpDesignSlots);
   safeInit('bindPdpFramework', bindPdpFramework);
   safeInit('bindPdpBeforeProblems', bindPdpBeforeProblems);

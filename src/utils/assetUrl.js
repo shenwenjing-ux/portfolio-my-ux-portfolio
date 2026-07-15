@@ -56,6 +56,27 @@ export function resolveAssetPaths(value) {
   return value;
 }
 
+/** GitHub Pages 偶发大图加载中断：失败后最多重试 2 次 */
+export function bindAssetImageRetry(root = document) {
+  if (!root?.querySelectorAll) return;
+  root.querySelectorAll('img[src]').forEach((img) => {
+    if (img.dataset.assetRetryBound === '1') return;
+    img.dataset.assetRetryBound = '1';
+    img.addEventListener('error', () => {
+      const tries = Number(img.dataset.assetRetryCount || 0);
+      if (tries >= 2) return;
+      img.dataset.assetRetryCount = String(tries + 1);
+      try {
+        const url = new URL(img.getAttribute('src') || img.src, document.baseURI);
+        url.searchParams.set('_retry', String(tries + 1));
+        img.src = `${url.pathname}${url.search}`;
+      } catch {
+        /* ignore */
+      }
+    });
+  });
+}
+
 /** GitHub Pages 项目页：无尾斜杠时强制补齐，避免相对资源跑到域名根 */
 export function ensureTrailingSlash() {
   if (typeof location === 'undefined') return;
