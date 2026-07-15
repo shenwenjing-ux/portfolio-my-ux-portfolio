@@ -688,8 +688,10 @@ export function createFlowersRecommendController(root) {
     root.style.setProperty('--pdp-flowers-rec-section-fade-h', `${scalePx(vw, sectionFadeHeightPx)}px`);
     root.style.setProperty('--pdp-flowers-rec-section-fade-top', `${scalePx(vw, sectionFadeTopPx)}px`);
 
-    // 白卡顶边贴在缩略轨上方：只露圆角顶，不盖主图主体与缩略轨
+    // 白卡顶边贴在缩略轨上方；高度受 Tab 底限制，避免挡住 Tab
     let whitePanelH = scalePx(vw, whitePanelHeightPx);
+    const maxHBelowTabs = Math.max(0, trackTop - tabsBottom);
+    whitePanelH = Math.min(whitePanelH, maxHBelowTabs);
     let whitePanelTop = Math.max(0, trackTop - whitePanelH);
     const shouldExtendWhitePanel =
       whitePanelExtendToBottom ||

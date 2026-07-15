@@ -107,10 +107,10 @@ const p2FlowersRecommendDemo = {
     sectionFadeHeightPx: 120,
     /* 与页内白卡左右边距一致：约 16×2 @750 */
     whitePanelWidthInsetPx: 32,
-    /* 顶圆角 24 @750 → ≈8.3 @260 */
+    /* 顶圆角 24 @750 → ≈8.3 @260；底角 0 */
     whitePanelTopRadiusPx: 24,
-    /* 高度≈圆角，只露顶边，不挡主图/缩略轨 */
-    whitePanelHeightPx: 24,
+    /* 露出高度≈14px @260（40@750），贴缩略轨顶上，不挡 Tab 底 */
+    whitePanelHeightPx: 40,
     whitePanelGapFromTabsBottomPx: 16,
     whitePanelFullWidth: false,
     whitePanelExtendOnReviewsOnly: false,
@@ -197,10 +197,10 @@ const p2DigitalRecommendDemo = {
     sectionFadeHeightPx: 120,
     /* 与页内白卡左右边距一致：约 16×2 @750 */
     whitePanelWidthInsetPx: 32,
-    /* 顶圆角 24 @750 → ≈8.3 @260 */
+    /* 顶圆角 24 @750 → ≈8.3 @260；底角 0 */
     whitePanelTopRadiusPx: 24,
-    /* 高度≈圆角，只露顶边，不挡主图/缩略轨 */
-    whitePanelHeightPx: 24,
+    /* 露出高度≈14px @260（40@750），贴缩略轨顶上，不挡 Tab 底 */
+    whitePanelHeightPx: 40,
     whitePanelGapFromTabsBottomPx: 16,
     whitePanelFullWidth: false,
     whitePanelExtendToBottom: false,
