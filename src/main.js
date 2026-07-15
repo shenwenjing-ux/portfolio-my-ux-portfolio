@@ -3,11 +3,7 @@ import {
   catalog as rawCatalog,
   projects as rawProjects,
 } from './data/portfolio.js';
-import { assetUrl, resolveAssetPaths } from './utils/assetUrl.js';
-
-const site = resolveAssetPaths(rawSite);
-const catalog = resolveAssetPaths(rawCatalog);
-const projects = resolveAssetPaths(rawProjects);
+import { assetUrl, ensureTrailingSlash, resolveAssetPaths } from './utils/assetUrl.js';
 import {
   bindPdpFlowersPdpDemo,
   renderPdpFlowersPdpDemo,
@@ -26,6 +22,12 @@ import {
 import { renderMockupImg } from './pdp-mockup-image.js';
 import './styles/main.css';
 import './styles/pdp-flowers-recommend-demo.css';
+
+ensureTrailingSlash();
+
+const site = resolveAssetPaths(rawSite);
+const catalog = resolveAssetPaths(rawCatalog);
+const projects = resolveAssetPaths(rawProjects);
 
 const state = {
   navScrolled: false,

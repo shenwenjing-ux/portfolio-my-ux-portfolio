@@ -6,7 +6,8 @@ import { defineConfig } from 'vite';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  base: './',
+  // 本地 / Netlify 默认相对路径；GitHub Pages 通过 VITE_BASE=/repo/ 注入绝对子路径
+  base: process.env.VITE_BASE || './',
   server: {
     port: 5173,
   },
