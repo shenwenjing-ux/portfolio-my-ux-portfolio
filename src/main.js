@@ -1181,7 +1181,9 @@ function renderPdpFrameworkHeroVisual(part) {
 function renderPdpFrameworkStaggerVisual(visual) {
   const hero = visual.heroDanmaku;
   const nutrition = visual.nutrition;
+  const nutritionSheet = visual.nutritionSheet;
   const review = visual.review;
+  const reviewsLanding = visual.reviewsLanding;
 
   const heroDanmakuHtml =
     hero?.danmaku?.items?.length
@@ -1197,9 +1199,25 @@ function renderPdpFrameworkStaggerVisual(visual) {
     : `
             <img src="${nutrition.src}" alt="${nutrition.alt}" loading="lazy" decoding="async" draggable="false" />`;
 
+  const sheetHtml = nutritionSheet
+    ? `
+        <figure class="pdp-framework__stagger-card pdp-framework__stagger-card--nutrition-sheet"${nutritionSheet.aspect ? ` style="--pdp-stagger-aspect: ${nutritionSheet.aspect}"` : ''}>
+          <img src="${nutritionSheet.src}" alt="${nutritionSheet.alt}" loading="lazy" decoding="async" draggable="false" />
+        </figure>`
+    : '';
+
+  const landingHtml = reviewsLanding
+    ? `
+        <figure class="pdp-framework__stagger-card pdp-framework__stagger-card--reviews-landing"${reviewsLanding.aspect ? ` style="--pdp-stagger-aspect: ${reviewsLanding.aspect}"` : ''}>
+          <img src="${reviewsLanding.src}" alt="${reviewsLanding.alt}" loading="lazy" decoding="async" draggable="false" />
+        </figure>`
+    : '';
+
+  const stageMod = nutritionSheet || reviewsLanding ? ' pdp-framework__stagger-stage--trust-flow' : '';
+
   return `
     <div class="pdp-framework__stagger-visual">
-      <div class="pdp-framework__stagger-stage">
+      <div class="pdp-framework__stagger-stage${stageMod}">
         <figure class="pdp-framework__stagger-card pdp-framework__stagger-card--hero-danmaku">
           <img src="${hero.src}" alt="${hero.alt}" loading="lazy" decoding="async" draggable="false" />
           ${heroDanmakuHtml}
@@ -1207,9 +1225,11 @@ function renderPdpFrameworkStaggerVisual(visual) {
         <figure class="pdp-framework__stagger-card pdp-framework__stagger-card--nutrition">
           ${nutritionHtml}
         </figure>
+        ${sheetHtml}
         <figure class="pdp-framework__stagger-card pdp-framework__stagger-card--review">
           <img src="${review.src}" alt="${review.alt}" loading="lazy" decoding="async" draggable="false" />
         </figure>
+        ${landingHtml}
       </div>
     </div>`;
 }
@@ -1796,6 +1816,41 @@ function renderPdpSchemeDanmaku(danmaku) {
 function renderPdpSchemePreviewDevice(item) {
   const demo = item.demo;
   const danmakuHtml = renderPdpSchemeDanmaku(item.danmaku);
+  const heroTabs = item.heroTabs?.tabs?.length ? item.heroTabs : null;
+
+  if (heroTabs) {
+    const tabsJson = encodeURIComponent(JSON.stringify(heroTabs.tabs));
+    const holdMs = heroTabs.holdMs ?? 1600;
+    const heroHeight = heroTabs.heroHeight ?? 54;
+    const firstHero = heroTabs.tabs.find((t) => t.heroSrc)?.heroSrc || '';
+    return `
+      <div
+        class="pdp-scheme-explorer__device${danmakuHtml ? ' pdp-scheme-explorer__device--danmaku' : ''} pdp-scheme-explorer__device--hero-tabs pdp-scheme-explorer__device--demo"
+        data-pdp-scheme-hero-tabs
+        data-pdp-scheme-hero-tabs-json="${tabsJson}"
+        data-pdp-scheme-hero-tabs-hold="${holdMs}"
+        style="--pdp-demo-hero-h: ${heroHeight}%"
+      >
+        <img
+          class="pdp-scheme-explorer__demo-base"
+          src="${item.after.src}"
+          alt="${item.after.alt}"
+          loading="lazy"
+        />
+        <div class="pdp-scheme-explorer__demo-hero" data-pdp-scheme-hero-tab-layer aria-hidden="true">
+          <img
+            class="pdp-scheme-explorer__demo-hero-img"
+            data-pdp-scheme-hero-tab-img
+            src="${firstHero}"
+            alt=""
+            loading="lazy"
+          />
+        </div>
+        ${danmakuHtml}
+        <span class="pdp-scheme-explorer__demo-hint" aria-hidden="true">悬停切换</span>
+      </div>`;
+  }
+
   if (!demo?.review) {
     return `
       <div class="pdp-scheme-explorer__device${danmakuHtml ? ' pdp-scheme-explorer__device--danmaku' : ''}">
@@ -3335,6 +3390,86 @@ function bindPdpSchemeDemo(device) {
   });
 }
 
+function bindPdpSchemeHeroTabs(device) {
+  if (!device || device.dataset.pdpSchemeHeroTabsBound === 'true') return;
+  const raw = device.dataset.pdpSchemeHeroTabsJson;
+  if (!raw) return;
+
+  let tabs = [];
+  try {
+    tabs = JSON.parse(decodeURIComponent(raw));
+  } catch {
+    return;
+  }
+  if (!tabs.length) return;
+
+  device.dataset.pdpSchemeHeroTabsBound = 'true';
+  const heroLayer = device.querySelector('[data-pdp-scheme-hero-tab-layer]');
+  const img = device.querySelector('[data-pdp-scheme-hero-tab-img]');
+  const danmaku = device.querySelector('.pdp-scheme-explorer__danmaku');
+  const hint = device.querySelector('.pdp-scheme-explorer__demo-hint');
+  const holdMs = Number(device.dataset.pdpSchemeHeroTabsHold) || 1600;
+  let index = 0;
+  let timer = null;
+
+  tabs.forEach((tab) => {
+    if (!tab?.heroSrc) return;
+    const preload = new Image();
+    preload.src = tab.heroSrc;
+  });
+
+  const apply = (i) => {
+    index = ((i % tabs.length) + tabs.length) % tabs.length;
+    const tab = tabs[index];
+    const showHero = Boolean(tab.heroSrc);
+    const showDanmaku = Boolean(tab.showDanmaku);
+
+    if (img && tab.heroSrc) {
+      img.src = tab.heroSrc;
+    }
+    if (heroLayer) {
+      heroLayer.classList.toggle('is-active', showHero);
+      heroLayer.setAttribute('aria-hidden', showHero ? 'false' : 'true');
+    }
+    if (danmaku) {
+      danmaku.classList.toggle('is-hidden', !showDanmaku);
+      danmaku.setAttribute('aria-hidden', 'true');
+    }
+    device.dataset.pdpSchemeHeroTab = tab.id || String(index);
+    device.classList.toggle('is-danmaku-off', !showDanmaku);
+    if (hint) {
+      hint.textContent = '悬停切换';
+    }
+  };
+
+  const stop = () => {
+    if (timer) {
+      window.clearInterval(timer);
+      timer = null;
+    }
+  };
+
+  const start = () => {
+    stop();
+    apply(0);
+    if (tabs.length < 2) return;
+    timer = window.setInterval(() => apply(index + 1), holdMs);
+  };
+
+  apply(0);
+  bindPdpHoverAutoplay(device, {
+    onPlay: start,
+    onPause: () => {
+      stop();
+      apply(0);
+    },
+  });
+
+  device.addEventListener('pdp-scheme-hero-tabs-reset', () => {
+    stop();
+    apply(0);
+  });
+}
 
 function bindPdpHoverAutoplay(target, { onPlay, onPause } = {}) {
   if (!target || typeof onPlay !== 'function' || typeof onPause !== 'function') {
@@ -3716,6 +3851,9 @@ function bindPdpSchemeExplorer() {
         const hint = device.querySelector('.pdp-scheme-explorer__demo-hint');
         if (hint) hint.textContent = '点击「评价」切换';
       });
+      container?.querySelectorAll('[data-pdp-scheme-hero-tabs]').forEach((device) => {
+        device.dispatchEvent(new CustomEvent('pdp-scheme-hero-tabs-reset'));
+      });
     };
 
     const activate = (index) => {
@@ -3746,6 +3884,9 @@ function bindPdpSchemeExplorer() {
 
     root.querySelectorAll('[data-pdp-scheme-demo]').forEach((device) => {
       bindPdpSchemeDemo(device);
+    });
+    root.querySelectorAll('[data-pdp-scheme-hero-tabs]').forEach((device) => {
+      bindPdpSchemeHeroTabs(device);
     });
 
     activate(0);

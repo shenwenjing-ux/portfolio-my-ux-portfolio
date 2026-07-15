@@ -3058,7 +3058,19 @@ button {
 }
 
 .pdp-framework__part--stagger-list {
-  grid-template-columns: var(--pdp-framework-visual-w) minmax(280px, 380px);
+  /* 视觉列 + 文案列须落在 framework 内；顶对齐对齐策略一顶距关系 */
+  --pdp-framework-visual-w: min(640px, calc(100% - 240px - var(--pdp-framework-part-gap)));
+  /* 缩小策略二图文左右间距 */
+  --pdp-framework-part-gap: clamp(20px, 2.5vw, 36px);
+  grid-template-columns: minmax(0, var(--pdp-framework-visual-w)) minmax(200px, 260px);
+  width: 100%;
+  max-width: 100%;
+  align-items: start;
+}
+
+.pdp-framework__part--stagger-list .pdp-framework__part-copy {
+  /* 与策略一：文案顶相对图顶约 34px */
+  margin-top: 34px;
 }
 
 .pdp-framework__hero-visual {
@@ -3088,6 +3100,8 @@ button {
 }
 
 .pdp-framework__stagger-visual {
+  display: flex;
+  justify-content: center;
   min-width: 0;
   width: 100%;
 }
@@ -3096,7 +3110,8 @@ button {
   position: relative;
   width: 100%;
   max-width: 484px;
-  min-height: clamp(420px, 42vw, 520px);
+  /* 加高舞台，三卡上下错开更开，减少互相遮挡 */
+  min-height: clamp(520px, 54vw, 640px);
   padding: 0;
   border-radius: 0;
   background: transparent;
@@ -3104,41 +3119,137 @@ button {
   box-shadow: none;
 }
 
+/* 策略二：三行左对齐——①弹幕 ②营养表+浮层 ③评价+落地页；机宽 240 */
+.pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow {
+  --pdp-trust-phone-w: 240px;
+  --pdp-trust-panel-w: 240px;
+  --pdp-trust-row1-top: 0px;
+  /* 拉开三行上下间距：机屏高约 300，行距约 48 */
+  --pdp-trust-row2-top: 348px;
+  /* 行二浮层高 521（+20）后再空约 48 */
+  --pdp-trust-row3-top: 956px;
+  /* 机屏左 0；浮层相对重叠约 16px → left 224 */
+  --pdp-trust-phone-left: 0px;
+  --pdp-trust-panel-left: 224px;
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 464px;
+  min-height: 1520px;
+  margin-inline: auto;
+  padding: 0 0 24px;
+}
+
+.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card {
+  position: absolute;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  width: var(--pdp-trust-phone-w);
+  max-width: none;
+  z-index: auto;
+  margin: 0;
+  aspect-ratio: var(--pdp-stagger-aspect, 820 / 1024);
+}
+
+.pdp-framework__stagger-card-label {
+  display: none;
+}
+
+.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--hero-danmaku {
+  top: var(--pdp-trust-row1-top);
+  left: var(--pdp-trust-phone-left);
+  z-index: 5;
+  width: var(--pdp-trust-phone-w);
+}
+
+.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition {
+  top: var(--pdp-trust-row2-top);
+  left: var(--pdp-trust-phone-left);
+  z-index: 7;
+  width: var(--pdp-trust-phone-w);
+  box-shadow: 0 18px 40px rgba(31, 31, 36, 0.18);
+}
+
+.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition-sheet {
+  top: calc(var(--pdp-trust-row2-top) + 20px);
+  left: var(--pdp-trust-panel-left);
+  right: auto;
+  z-index: 4;
+  width: var(--pdp-trust-panel-w);
+  /* 与策略一首屏机图同尺寸：472×1024 → 240×521 */
+  aspect-ratio: var(--pdp-stagger-aspect, 472 / 1024);
+  box-shadow: 0 24px 56px rgba(31, 31, 36, 0.16);
+}
+
+.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--review {
+  top: var(--pdp-trust-row3-top);
+  left: var(--pdp-trust-phone-left);
+  right: auto;
+  bottom: auto;
+  z-index: 7;
+  width: var(--pdp-trust-phone-w);
+  box-shadow: 0 18px 40px rgba(31, 31, 36, 0.18);
+}
+
+.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--reviews-landing {
+  top: calc(var(--pdp-trust-row3-top) + 20px);
+  left: var(--pdp-trust-panel-left);
+  right: auto;
+  z-index: 4;
+  width: var(--pdp-trust-panel-w);
+  aspect-ratio: var(--pdp-stagger-aspect, 750 / 1624);
+  box-shadow: 0 22px 52px rgba(31, 31, 36, 0.14);
+}
+
 .pdp-framework__stagger-card {
   position: absolute;
   margin: 0;
   overflow: hidden;
   border-radius: 20px;
-  background: #fff;
+  background: transparent;
   box-shadow: 0 20px 48px rgba(31, 31, 36, 0.12);
+  aspect-ratio: 820 / 1024;
+  /* 三卡统一宽度，避免营养卡偏大 */
+  width: min(220px, 52%);
 }
 
 .pdp-framework__stagger-card img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* 源图与容器同比例，避免 cover 裁切放大 */
+.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition-sheet img,
+.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--reviews-landing img {
+  object-fit: fill;
+  object-position: top center;
+  background: #fff;
 }
 
 .pdp-framework__stagger-card--hero-danmaku {
-  top: clamp(8px, 1.2vw, 16px);
-  left: clamp(8px, 1.2vw, 16px);
+  top: clamp(4px, 0.8vw, 12px);
+  left: clamp(4px, 0.8vw, 12px);
   z-index: 3;
-  width: min(220px, 52%);
 }
 
+/* 右上 / 底中再拉开，保留叠层感但露出更多面 */
 .pdp-framework__stagger-card--nutrition {
-  top: clamp(48px, 5vw, 72px);
-  right: clamp(4px, 1vw, 12px);
+  top: clamp(56px, 7vw, 96px);
+  right: clamp(0px, 0.5vw, 8px);
+  left: auto;
   z-index: 1;
-  width: min(168px, 36%);
 }
 
 .pdp-framework__stagger-card--review {
-  left: clamp(72px, 8vw, 108px);
+  left: clamp(88px, 10vw, 128px);
   right: auto;
-  bottom: clamp(8px, 1.2vw, 16px);
+  bottom: clamp(4px, 0.6vw, 10px);
   z-index: 2;
-  width: min(200px, 44%);
 }
 
 .pdp-framework__stagger-danmaku {
@@ -3257,6 +3368,21 @@ button {
   font-size: 11px;
   line-height: 1.6;
   color: rgba(31, 31, 36, 0.5);
+}
+
+/* 策略二错落区：副标题单行，并收紧左右内边距避免右侧裁切 */
+.pdp-framework__part--stagger-list .pdp-framework__point {
+  padding-inline: 12px;
+}
+
+.pdp-framework__part--stagger-list .pdp-framework__point-main {
+  gap: 8px;
+}
+
+.pdp-framework__part--stagger-list .pdp-framework__point-text {
+  white-space: nowrap;
+  font-size: 10px;
+  line-height: 1.5;
 }
 
 .pdp-framework__point-badge {
@@ -4487,8 +4613,20 @@ button {
   -webkit-user-drag: none;
 }
 
-.pdp-scheme-explorer__device--demo {
+.pdp-scheme-explorer__danmaku.is-hidden,
+.pdp-scheme-explorer__device.is-danmaku-off .pdp-scheme-explorer__danmaku {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pdp-scheme-explorer__device--demo,
+.pdp-scheme-explorer__device--hero-tabs {
   cursor: default;
+}
+
+.pdp-scheme-explorer__device--hero-tabs .pdp-scheme-explorer__demo-hint {
+  opacity: 0.72;
 }
 
 .pdp-scheme-explorer__demo-base {
@@ -6244,14 +6382,14 @@ button {
 .pdp-digital-param-demo-wrap__hint {
   margin-left: 8px;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--pdp-text-muted);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(31, 31, 36, 0.28);
 }
 
 [data-pdp-digital-param-demo-card].is-active .pdp-digital-param-demo-wrap__hint,
 .pdp-digital-param-demo-wrap.is-active .pdp-digital-param-demo-wrap__hint {
-  color: var(--pdp-accent);
+  color: rgba(31, 31, 36, 0.4);
 }
 
 /* 全站 Demo 热区 · 右侧圆环 + 呼吸动效（与 public/demos/shared/pdp-demo-hotspot.css 同步） */
@@ -6741,8 +6879,9 @@ button {
 .pdp-phase-two-strategy-example__hint {
   margin-left: 6px;
   font-size: 10px;
-  font-weight: 500;
-  color: rgba(31, 31, 36, 0.38);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(31, 31, 36, 0.28);
 }
 
 .pdp-phase-two-module__split--rows .pdp-strategy-card__title {
@@ -7045,19 +7184,19 @@ button {
 
 .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-example--interactive .pdp-digital-param-demo-wrap__hint,
 .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-example--interactive.is-active .pdp-phase-two-strategy-example__label .pdp-digital-param-demo-wrap__hint {
-  color: var(--pdp-text-muted);
+  color: rgba(31, 31, 36, 0.28);
 }
 
 .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-example--interactive.is-active .pdp-digital-param-demo-wrap__hint,
 .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-example--interactive.is-active .pdp-phase-two-strategy-example__label .pdp-digital-param-demo-wrap__hint {
-  color: var(--pdp-accent);
+  color: rgba(31, 31, 36, 0.4);
 }
 
 .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-example--interactive .pdp-digital-param-demo-wrap__hint {
   margin-left: 8px;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 .pdp-phase-two-module__visuals--compare .pdp-phase-two-category {
@@ -7136,8 +7275,9 @@ button {
 
 .pdp-path-demo-card__hint {
   font-size: 11px;
-  font-weight: 600;
-  color: rgba(31, 31, 36, 0.42);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(31, 31, 36, 0.28);
   white-space: nowrap;
   background: transparent;
   padding: 0;
@@ -7146,7 +7286,7 @@ button {
 }
 
 .pdp-path-demo-card.is-active .pdp-path-demo-card__hint {
-  color: var(--pdp-accent);
+  color: rgba(31, 31, 36, 0.4);
   background: transparent;
 }
 
@@ -7230,9 +7370,9 @@ button {
 .pdp-trust-interactive-demo__hint {
   margin: 0;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: rgba(31, 31, 36, 0.42);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(31, 31, 36, 0.28);
 }
 
 .pdp-trust-interactive-demo__frame {
@@ -7718,14 +7858,14 @@ button {
 .pdp-phase-two-compare__hint {
   margin-left: 8px;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: rgba(31, 31, 36, 0.42);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(31, 31, 36, 0.28);
   background: transparent;
 }
 
 .pdp-phase-two-compare__column--after-interactive.is-active .pdp-phase-two-compare__hint {
-  color: var(--pdp-accent);
+  color: rgba(31, 31, 36, 0.4);
 }
 
 .pdp-phase-two-compare__column--after-interactive .pdp-flowers-pdp {
@@ -9887,11 +10027,68 @@ button {
     min-height: clamp(360px, 78vw, 440px);
   }
 
+  .pdp-framework__stagger-stage--trust-flow {
+    --pdp-trust-phone-w: min(240px, 42vw);
+    --pdp-trust-panel-w: min(240px, 42vw);
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    justify-items: center;
+    column-gap: 0;
+    row-gap: 16px;
+    padding: 8px 0;
+  }
+
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition,
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--review {
+    z-index: 7;
+  }
+
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition-sheet,
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--reviews-landing {
+    z-index: 4;
+  }
+
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card,
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--hero-danmaku,
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition,
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition-sheet,
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--review,
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--reviews-landing {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin: 0;
+    width: var(--pdp-trust-phone-w);
+  }
+
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--hero-danmaku {
+    grid-column: 1 / -1;
+    width: var(--pdp-trust-phone-w);
+    justify-self: center;
+  }
+
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition-sheet,
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--reviews-landing {
+    width: var(--pdp-trust-panel-w);
+  }
+
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition-sheet {
+    margin-top: 20px;
+  }
+
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--reviews-landing {
+    margin-top: 20px;
+  }
+
   .pdp-framework__stagger-card--hero-danmaku,
   .pdp-framework__stagger-card--nutrition,
   .pdp-framework__stagger-card--review {
     position: relative;
-    width: min(240px, 88%);
+    width: min(220px, 86%);
     margin-inline: auto;
   }
 
@@ -9904,17 +10101,24 @@ button {
   .pdp-framework__stagger-card--nutrition {
     top: auto;
     right: auto;
-    margin-top: -48px;
+    margin-top: -16px;
     margin-left: auto;
-    margin-right: clamp(8px, 2vw, 16px);
-    z-index: 2;
+    margin-right: clamp(12px, 3vw, 24px);
+    z-index: 1;
   }
 
   .pdp-framework__stagger-card--review {
     right: auto;
     bottom: auto;
-    margin-top: -40px;
-    z-index: 1;
+    margin-top: -16px;
+    z-index: 2;
+  }
+
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition,
+  .pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--review {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .pdp-framework__block-frame-stage {

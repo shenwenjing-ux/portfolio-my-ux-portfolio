@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="870" viewBox="0 0 750 870">
+  <title>商品参数 · 营养表 Tab 选中</title>
+  <defs>
+    <linearGradient id="pageBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FCF4CA"/>
+      <stop offset="62%" stop-color="#FEF7E4"/>
+      <stop offset="100%" stop-color="#F5F5F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="750" height="788" rx="24" fill="url(#pageBg)"/>
+  <image href="nutrition-params-card-702x553.svg" x="24" y="117" width="702" height="553"/>
+  <rect x="172" y="812" width="407" height="50" rx="25" fill="#FFFFFF" fill-opacity="0.8" stroke="#F1F1F2"/>
+  <text x="196" y="837.0" dominant-baseline="central" fill="#858687" font-size="24" font-family="PingFang SC, sans-serif">1/5</text>
+  <rect x="257" y="812" width="128" height="50" rx="25" fill="#FFFFFF"/>
+  <text x="321" y="837.0" text-anchor="middle" dominant-baseline="central" fill="#222426" font-size="24" font-weight="500" font-family="PingFang SC, sans-serif">营养表</text>
+  <text x="409" y="837.0" dominant-baseline="central" fill="#858687" font-size="24" font-family="PingFang SC, sans-serif">评价</text>
+  <text x="481" y="837.0" dominant-baseline="central" fill="#858687" font-size="24" font-family="PingFang SC, sans-serif">详情</text>
+  <image href="icon-tab-arrow@1.5x.png" x="533" y="827.0" width="20" height="20"/>
+</svg>

@@ -105,10 +105,16 @@ const p2FlowersRecommendDemo = {
     trackActiveShiftId: 'v5',
     sectionFadeTopPx: 718,
     sectionFadeHeightPx: 120,
-    whitePanelWidthInsetPx: 12,
-    whitePanelTopRadiusPx: 18,
-    whitePanelHeightPx: 70,
+    /* 与页内白卡左右边距一致：约 16×2 @750 */
+    whitePanelWidthInsetPx: 32,
+    /* 顶圆角 24 @750 → ≈8.3 @260 */
+    whitePanelTopRadiusPx: 24,
+    /* 高度≈圆角，只露顶边，不挡主图/缩略轨 */
+    whitePanelHeightPx: 24,
     whitePanelGapFromTabsBottomPx: 16,
+    whitePanelFullWidth: false,
+    whitePanelExtendOnReviewsOnly: false,
+    whitePanelBottomRadiusPx: 0,
     heroBottomPx: 838,
     priceTop: 647,
     tabsTopPx: 786,
@@ -173,7 +179,7 @@ const p2DigitalRecommendDemo = {
   ],
   tabAssets: {
     specTag: '/images/projects/pdp-p2-digital-rec-spec-tag.png?v=5',
-    reviewsPanel: '/images/projects/pdp-p2-digital-rec-reviews-panel.png?v=3',
+    reviewsPanel: '/images/projects/pdp-p2-digital-rec-reviews-panel.png?v=10',
   },
   mainThumb: '/images/projects/pdp-p2-digital-rec-main-thumb.png?v=1',
   mainHero: '/images/projects/pdp-p2-digital-rec-hero-main.png?v=2',
@@ -189,14 +195,17 @@ const p2DigitalRecommendDemo = {
     trackActiveShiftId: 'v2',
     sectionFadeTopPx: 718,
     sectionFadeHeightPx: 120,
-    whitePanelWidthInsetPx: 12,
-    whitePanelTopRadiusPx: 18,
-    whitePanelHeightPx: 70,
+    /* 与页内白卡左右边距一致：约 16×2 @750 */
+    whitePanelWidthInsetPx: 32,
+    /* 顶圆角 24 @750 → ≈8.3 @260 */
+    whitePanelTopRadiusPx: 24,
+    /* 高度≈圆角，只露顶边，不挡主图/缩略轨 */
+    whitePanelHeightPx: 24,
     whitePanelGapFromTabsBottomPx: 16,
-    whitePanelFullWidth: true,
+    whitePanelFullWidth: false,
     whitePanelExtendToBottom: false,
-    whitePanelExtendOnReviewsOnly: true,
-    whitePanelBottomRadiusPx: 16,
+    whitePanelExtendOnReviewsOnly: false,
+    whitePanelBottomRadiusPx: 0,
     heroBottomPx: 838,
     priceTop: 647,
     tabsTopPx: 786,
@@ -221,7 +230,7 @@ const p2DigitalRecommendDemo = {
     specTagHeightPx: 40,
     specTagRadiusPx: 20,
     reviewsPanelWidthPx: 738,
-    reviewsPanelAspectW: 820,
+    reviewsPanelAspectW: 974,
     reviewsPanelAspectH: 1024,
     tabBarRadiusPx: 26,
     tabPillTopPx: 4,
@@ -231,6 +240,7 @@ const p2DigitalRecommendDemo = {
     tabLineHeightPx: 40,
     tabBlurPx: 16.32,
     demoStyleHoldMs: 1600,
+    /* 与鲜花评价态一致：上移面板；仅裁切底边直角 */
     reviewsPanelOffsetYPx: -48,
     reviewsClipTopOnly: true,
   },
@@ -868,23 +878,35 @@ export const projects = [
                 },
                 nutrition: {
                   label: '营养表',
-                  src: '/images/projects/pdp-p1-trust-nutrition.png',
+                  src: '/images/projects/pdp-p1-trust-nutrition.png?v=11',
                   alt: '改版后 · 营养表前置主图示例',
-                  placeholder: true,
+                  placeholder: false,
+                },
+                nutritionSheet: {
+                  label: '查看更多参数',
+                  src: '/images/projects/pdp-p1-trust-nutrition-sheet.png?v=14',
+                  alt: '改版后 · 点击查看更多参数浮层示例',
+                  aspect: '472 / 1024',
                 },
                 review: {
                   src: '/images/projects/pdp-p1-conversion-review.png',
                   alt: '改版后 · 用户评价前置主图示例',
                 },
+                reviewsLanding: {
+                  label: '更多评价',
+                  src: '/images/projects/pdp-p1-trust-reviews-landing.png?v=5',
+                  alt: '改版后 · 更多评价落地页示例',
+                  aspect: '750 / 1624',
+                },
               },
               strategies: [
                 {
-                  title: '主图前置信任信息',
-                  text: '营养表、用户评价前置主图，一键查看佐证。',
-                },
-                {
                   title: 'UGC 弹幕与花语',
                   text: '新增 UGC 弹幕与花语，丰富商品了解。',
+                },
+                {
+                  title: '主图前置信任信息',
+                  text: '营养表、用户评价前置主图，一键查看佐证。',
                 },
               ],
             },
@@ -897,7 +919,7 @@ export const projects = [
             tag: '食品类',
             before: {
               label: '改版前',
-              src: '/images/projects/pdp-p1-milk-before.png?v=2',
+              src: '/images/projects/pdp-p1-milk-before.png?v=7',
               alt: '一期 · 牛奶类商详 · 改版前',
             },
             after: {

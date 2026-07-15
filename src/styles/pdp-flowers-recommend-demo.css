@@ -83,7 +83,11 @@
   overflow: hidden;
   pointer-events: auto;
   touch-action: pan-y;
-  border-radius: var(--pdp-frame-inner-r, 16px) var(--pdp-frame-inner-r, 16px) 0 0;
+  /* 图片/款式：主图顶左右圆角 */
+  border-top-left-radius: var(--pdp-frame-inner-r, 16px);
+  border-top-right-radius: var(--pdp-frame-inner-r, 16px);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   cursor: grab;
 }
 
@@ -107,7 +111,7 @@
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-  border-radius: 0;
+  border-radius: var(--pdp-frame-inner-r, 16px) var(--pdp-frame-inner-r, 16px) 0 0;
 }
 
 .pdp-flowers-rec__viewport.pdp-screen-mockup__viewport .pdp-flowers-rec__hero.is-active {
@@ -361,12 +365,15 @@
   touch-action: pan-y;
   cursor: grab;
   overflow: hidden;
-  border-radius: var(--pdp-frame-inner-r, 16px) var(--pdp-frame-inner-r, 16px) 0 0;
+  border-radius: 0;
 }
 
 .pdp-flowers-rec[data-reviews-clip-top-only='true'] .pdp-flowers-rec__reviews-layer {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: var(--pdp-frame-inner-r, 16px);
+}
+
+.pdp-flowers-rec[data-reviews-clip-top-only='true'] .pdp-flowers-rec__reviews-panel {
+  border-radius: var(--pdp-frame-inner-r, 16px);
 }
 
 .pdp-flowers-rec__reviews-layer.is-visible {
@@ -384,6 +391,25 @@
   visibility: hidden;
 }
 
+/* 评价 Tab：四角圆角；与主图同层，避免压住下方信息卡 */
+.pdp-flowers-rec.is-reviews-tab .pdp-flowers-rec__reviews-layer {
+  overflow: hidden;
+  max-height: var(--pdp-flowers-rec-reviews-layer-h, var(--pdp-flowers-rec-hero-layer-h));
+  border-radius: var(--pdp-frame-inner-r, 16px);
+  background: transparent;
+  z-index: 2;
+}
+
+/* 顶栏必须在评价层之上，否则奶油主图会盖住导航 */
+.pdp-flowers-rec.is-reviews-tab .pdp-flowers-rec__chrome {
+  z-index: 20;
+}
+
+.pdp-flowers-rec.is-reviews-tab .pdp-flowers-rec__section-fade {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .pdp-flowers-rec__viewport.pdp-screen-mockup__viewport .pdp-flowers-rec__reviews-panel {
   display: block;
   width: 100%;
@@ -395,14 +421,12 @@
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-  border-radius: var(--pdp-frame-inner-r, 16px) var(--pdp-frame-inner-r, 16px) 0 0;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: var(--pdp-frame-inner-r, 16px);
 }
 
-.pdp-flowers-rec[data-reviews-clip-top-only='true'] .pdp-flowers-rec__reviews-panel {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+.pdp-flowers-rec.is-reviews-tab .pdp-flowers-rec__reviews-layer,
+.pdp-flowers-rec.is-reviews-tab .pdp-flowers-rec__reviews-panel {
+  border-radius: var(--pdp-frame-inner-r, 16px);
 }
 
 .pdp-flowers-rec__section-fade {
@@ -414,28 +438,30 @@
   opacity: 1;
   background: linear-gradient(180deg, rgba(245, 245, 245, 0) 0%, rgba(245, 245, 245, 0.35) 100%);
   pointer-events: none;
-  z-index: 11;
+  z-index: 10;
 }
 
+/* 缩略轨上方：白卡顶边圆角提示（不盖住缩略图） */
 .pdp-flowers-rec__white-panel {
   position: absolute;
-  top: var(--pdp-flowers-rec-white-panel-top);
-  left: var(--pdp-flowers-rec-white-panel-left, calc(var(--pdp-flowers-rec-vw, 260px) * 6 / 750));
-  width: var(--pdp-flowers-rec-white-panel-w, calc(var(--pdp-flowers-rec-vw, 260px) - var(--pdp-flowers-rec-vw, 260px) * 12 / 750));
-  height: var(--pdp-flowers-rec-white-panel-h, calc(var(--pdp-flowers-rec-vw, 260px) * 70 / 750));
+  top: var(--pdp-flowers-rec-white-panel-top, 0);
+  left: var(--pdp-flowers-rec-white-panel-left, 0);
+  width: var(--pdp-flowers-rec-white-panel-w, 100%);
+  height: var(--pdp-flowers-rec-white-panel-h, 0);
+  /* 高于主图(2)、chrome(5)、fade(10)；低于缩略轨(12) / Tab(15) */
+  z-index: 11;
+  pointer-events: none;
   background: #fff;
-  border-radius: var(--pdp-flowers-rec-white-panel-radius, calc(var(--pdp-flowers-rec-vw, 260px) * 18 / 750))
-    var(--pdp-flowers-rec-white-panel-radius, calc(var(--pdp-flowers-rec-vw, 260px) * 18 / 750))
+  border-radius: var(--pdp-flowers-rec-white-panel-radius, 0)
+    var(--pdp-flowers-rec-white-panel-radius, 0)
     var(--pdp-flowers-rec-white-panel-bottom-radius, 0)
     var(--pdp-flowers-rec-white-panel-bottom-radius, 0);
-  pointer-events: none;
-  z-index: 10;
 }
 
 .pdp-flowers-rec__track-layer {
   position: absolute;
   inset: 0;
-  z-index: 10;
+  z-index: 12;
   background: transparent;
   pointer-events: none;
   overflow: hidden;

@@ -688,16 +688,19 @@ export function createFlowersRecommendController(root) {
     root.style.setProperty('--pdp-flowers-rec-section-fade-h', `${scalePx(vw, sectionFadeHeightPx)}px`);
     root.style.setProperty('--pdp-flowers-rec-section-fade-top', `${scalePx(vw, sectionFadeTopPx)}px`);
 
-    const whitePanelTop = tabsBottom + scalePx(vw, whitePanelGapFromTabsBottomPx);
+    // 白卡顶边贴在缩略轨上方：只露圆角顶，不盖主图主体与缩略轨
     let whitePanelH = scalePx(vw, whitePanelHeightPx);
+    let whitePanelTop = Math.max(0, trackTop - whitePanelH);
     const shouldExtendWhitePanel =
       whitePanelExtendToBottom ||
       (whitePanelExtendOnReviewsOnly && activeMediaTabId === 'reviews');
     if (shouldExtendWhitePanel) {
       whitePanelH = Math.max(whitePanelH, Math.max(0, layoutH - whitePanelTop));
     }
-    const whitePanelSideInset = whitePanelFullWidth ? 0 : (vw / 260) * (whitePanelWidthInsetPx / 2);
-    const whitePanelW = whitePanelFullWidth ? vw : Math.max(0, vw - (vw / 260) * whitePanelWidthInsetPx);
+    // whitePanelWidthInsetPx：设计稿 750 下左右总内缩（与页内白卡边距一致）
+    const whitePanelTotalInset = whitePanelFullWidth ? 0 : scalePx(vw, whitePanelWidthInsetPx);
+    const whitePanelSideInset = whitePanelTotalInset / 2;
+    const whitePanelW = whitePanelFullWidth ? vw : Math.max(0, vw - whitePanelTotalInset);
     root.style.setProperty('--pdp-flowers-rec-white-panel-top', `${whitePanelTop}px`);
     root.style.setProperty('--pdp-flowers-rec-white-panel-h', `${whitePanelH}px`);
     root.style.setProperty('--pdp-flowers-rec-white-panel-w', `${whitePanelW}px`);
