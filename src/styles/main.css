@@ -11336,7 +11336,7 @@ button {
   padding: 0;
   border-radius: clamp(18px, 2.5vw, 24px);
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.12);
+  background: transparent;
   box-shadow: none;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   /* 加载失败时仍占位，避免机图塌成一条 */
