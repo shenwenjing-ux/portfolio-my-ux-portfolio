@@ -399,7 +399,9 @@ export const projects = [
         hideDesignHeaders: true,
         stickyStrategies: true,
         stickyStrategySplit: 3,
-        slides: makeSlidesFromPages([5, 6, 7, 8, 9, 10], '逆向链路体验优化', '方案设计'),
+        slides: makeSlidesFromPages([5, 6, 7, 8, 9, 10], '逆向链路体验优化', '方案设计', 'png').map(
+          (slide) => ({ ...slide, src: `${slide.src}?v=rf-png1` }),
+        ),
         designHeaders: [
           {
             subtitle: '构建场景化功能引导体系',
@@ -592,7 +594,7 @@ export const projects = [
         stickyStrategies: true,
         stickyMode: 'invite-title',
         slides: makeSlidesFromPages([14, 15, 16, 17, 18, 19], '邀新活动商品迭代优化', '方案设计', 'jpg').map(
-          (slide) => ({ ...slide, src: `${slide.src}?v=black2` }),
+          (slide) => ({ ...slide, src: `${slide.src}?v=black3` }),
         ),
         designHeaders: [
           {

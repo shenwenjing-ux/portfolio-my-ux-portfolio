@@ -60,6 +60,49 @@ button {
   margin: 0 auto;
 }
 
+/* 作品集正文：宽度够则完整展示，不够则自然折行（不含商详 demo 机内控件） */
+.hero__desc,
+.catalog-card__title,
+.catalog-card__project,
+.catalog-card__summary,
+.catalog-card__list,
+.reverse-hero__title,
+.reverse-hero__summary,
+.invite-hero__title,
+.invite-hero__summary,
+.project-content-subtitle,
+.design-section-header .project-content-subtitle,
+.design-section-header__subtitle-continued,
+.design-section-header__strategy-line,
+.design-section-header__group-title,
+.design-sticky-bar__subtitle,
+.design-sticky-bar__strategy-text,
+.design-sticky-bar__invite-body,
+.background-panel__title,
+.background-panel__intro,
+.background-panel__goal-title,
+.background-panel__goal-text,
+.background-panel__step-title,
+.background-panel__step-list,
+.background-panel__key-strategies,
+.background-panel__principle-title,
+.background-panel__principle-list,
+.analysis-block__text,
+.analysis-card__desc,
+.analysis-card__heading,
+.analysis-card__label,
+.analysis-card__list,
+.analysis-metric-item__label,
+.metrics-panel__text,
+.metrics-stat__label,
+.mini-metric__label,
+.sidebar-block p,
+.pain-list li {
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
 /* Navigation */
 .nav {
   position: fixed;
@@ -581,6 +624,7 @@ button {
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 0;
 }
 
 .catalog-card__index {
@@ -615,10 +659,6 @@ button {
   margin: 0 0 16px;
   font-size: 14px;
   color: var(--text-muted);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .catalog-card__list {
@@ -683,6 +723,8 @@ button {
   font-size: 11px;
   line-height: 1.4;
   color: var(--text-muted);
+  max-width: 100%;
+  text-align: center;
 }
 
 .sidebar-block--lead {
@@ -1072,6 +1114,7 @@ button {
 .design-sticky-bar__strategy {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
   font-size: 14px;
@@ -1109,6 +1152,8 @@ button {
 }
 
 .design-sticky-bar__strategy-text {
+  min-width: 0;
+  flex: 1 1 auto;
   color: #111;
   font-weight: 500;
 }
@@ -1167,6 +1212,7 @@ button {
 .design-sticky-bar--invite-title .design-sticky-bar__invite-body {
   display: block;
   flex-shrink: 0;
+  min-width: 0;
   margin: 0;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.76);
@@ -1334,6 +1380,46 @@ button {
   box-shadow: 0 16px 40px rgba(28, 28, 30, 0.08);
 }
 
+.project-detail--bw .analysis-card__heading--split {
+  gap: 6px 10px;
+}
+
+.project-detail--bw .analysis-card__heading.analysis-card__heading--split {
+  display: flex;
+}
+
+.project-detail--bw .analysis-card__heading--split > span {
+  min-width: 0;
+  max-width: 100%;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  text-wrap: pretty;
+}
+
+.project-detail--bw .analysis-card__list,
+.project-detail--bw .analysis-card--strategy .analysis-card__list {
+  /* 中文按词/标点折行，数字与英文尽量不拆开 */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  line-break: strict;
+  text-wrap: pretty;
+  padding-right: 2px;
+}
+
+.project-detail--bw .analysis-card__list li {
+  max-width: 100%;
+}
+
+.project-detail--bw .analysis-card--strategy .analysis-card__list {
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+
+.project-detail--bw .analysis-card--deck .analysis-card__list {
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+
 /* Shared project content alignment */
 .project-content-inner,
 .analysis-panel__inner {
@@ -1421,6 +1507,7 @@ button {
 
 .design-section-header__strategy-line {
   margin: 0;
+  min-width: 0;
   font-size: clamp(14px, 1.6vw, 16px);
   font-weight: 500;
   line-height: 1.55;
@@ -1442,6 +1529,7 @@ button {
 
 .design-section-header__group-title {
   margin: 0 0 8px;
+  min-width: 0;
   font-size: clamp(15px, 1.7vw, 17px);
   font-weight: 600;
   line-height: 1.55;
@@ -1506,10 +1594,12 @@ button {
 .background-panel__head {
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
 .background-panel__index {
+  flex-shrink: 0;
   font-size: clamp(42px, 6vw, 64px);
   font-weight: 700;
   line-height: 1;
@@ -1519,6 +1609,8 @@ button {
 
 .background-panel__title {
   margin: 0;
+  min-width: 0;
+  flex: 1 1 12rem;
   font-size: clamp(28px, 3.8vw, 40px);
   font-weight: 700;
   line-height: 1.2;
@@ -1541,10 +1633,11 @@ button {
 }
 
 .background-panel__goal {
-  padding: 18px 20px;
+  padding: clamp(16px, 2vw, 18px) clamp(18px, 2.2vw, 20px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.03);
+  min-width: 0;
 }
 
 .background-panel__goal-title {
@@ -1593,8 +1686,9 @@ button {
 }
 
 .background-panel__step {
-  padding: 18px 16px;
+  padding: clamp(16px, 2vw, 18px) clamp(14px, 1.8vw, 16px);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 0;
 }
 
 .background-panel__step:last-child {
@@ -1604,11 +1698,13 @@ button {
 .background-panel__step-head {
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 12px;
 }
 
 .background-panel__step-index {
+  flex-shrink: 0;
   font-size: 13px;
   font-weight: 700;
   line-height: 1;
@@ -1617,6 +1713,8 @@ button {
 
 .background-panel__step-title {
   margin: 0;
+  min-width: 0;
+  flex: 1 1 8rem;
   font-size: 15px;
   font-weight: 700;
   line-height: 1.35;
@@ -3310,12 +3408,15 @@ button {
 
 .pdp-framework__part-title {
   margin: 0;
+  max-width: 100%;
   font-size: clamp(15px, 1.45vw, 17px);
   font-weight: 800;
   line-height: 1.45;
   letter-spacing: -0.01em;
   color: var(--pdp-navy);
-  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
 }
 
 .pdp-framework__part-footnote {
@@ -3342,6 +3443,10 @@ button {
   align-items: start;
 }
 
+.pdp-framework__point-copy {
+  min-width: 0;
+}
+
 .pdp-framework__point-icon {
   display: inline-flex;
   align-items: center;
@@ -3357,22 +3462,30 @@ button {
 
 .pdp-framework__point-title {
   margin: 0 0 3px;
+  max-width: 100%;
   font-size: 12px;
   font-weight: 700;
   line-height: 1.45;
   color: rgba(31, 31, 36, 0.88);
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
 }
 
 .pdp-framework__point-text {
   margin: 0;
+  max-width: 100%;
   font-size: 11px;
   line-height: 1.6;
   color: rgba(31, 31, 36, 0.5);
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
 }
 
-/* 策略二错落区：副标题单行，并收紧左右内边距避免右侧裁切 */
+/* 策略二错落区：能一行则一行，放不下再折行；卡片左右内边距与默认一致 */
 .pdp-framework__part--stagger-list .pdp-framework__point {
-  padding-inline: 12px;
+  padding: clamp(12px, 1.5vw, 16px);
 }
 
 .pdp-framework__part--stagger-list .pdp-framework__point-main {
@@ -3380,7 +3493,6 @@ button {
 }
 
 .pdp-framework__part--stagger-list .pdp-framework__point-text {
-  white-space: nowrap;
   font-size: 10px;
   line-height: 1.5;
 }
@@ -10015,10 +10127,6 @@ button {
     width: 100%;
   }
 
-  .pdp-framework__part-title {
-    white-space: normal;
-  }
-
   .pdp-framework__hero-shot {
     width: min(240px, 100%);
   }
@@ -11108,7 +11216,6 @@ button {
   }
 
   .invite-hero__title {
-    white-space: normal;
     font-size: clamp(24px, 7vw, 34px);
   }
 
@@ -11297,7 +11404,6 @@ button {
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text);
-  white-space: nowrap;
 }
 
 .invite-hero__summary {
@@ -11437,6 +11543,7 @@ button {
 .project-detail--invite .design-section-inner .project-section__figure--design {
   padding: 0;
   background: transparent;
+  width: 100%;
 }
 
 .project-detail--invite .project-section--design .design-section-inner--grouped {
@@ -11446,9 +11553,13 @@ button {
   gap: clamp(28px, 4vw, 40px);
 }
 
+/* 与内容区标题同宽（如 1152），等比例放大；源图 ≥2x 保证清晰 */
 .project-detail--invite .design-section-inner .project-section__figure--design img,
 .project-detail--invite .design-section-inner .design-slide-media {
+  width: 100%;
+  max-width: none;
   margin-inline: 0;
+  height: auto;
 }
 
 .project-detail--invite .design-section-inner--grouped .design-section-group--spaced {
@@ -11497,7 +11608,7 @@ button {
 .analysis-card--metric .analysis-card__body {
   justify-content: center;
   min-height: 72px;
-  padding: 20px 24px;
+  padding: clamp(20px, 2.2vw, 24px);
 }
 
 .analysis-metric-item {
@@ -11685,6 +11796,7 @@ button {
 
 .analysis-card--deck {
   position: relative;
+  min-width: 0;
   border-radius: var(--radius);
   background: #fcfcfc;
   border: 1px solid rgba(0, 0, 0, 0.03);
@@ -11708,7 +11820,7 @@ button {
   top: 16px;
   right: 16px;
   z-index: 2;
-  padding: 0;
+  padding: 0 0 0 12px;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -11717,17 +11829,17 @@ button {
   font-weight: 500;
   line-height: 1.4;
   text-align: right;
-  max-width: 46%;
-  white-space: nowrap;
+  max-width: min(46%, calc(100% - 32px));
 }
 
 .analysis-card--deck .analysis-card__body {
   position: relative;
   z-index: 1;
-  padding: clamp(68px, 9vw, 92px) 22px 22px;
+  padding: clamp(68px, 9vw, 92px) clamp(20px, 2.2vw, 24px) clamp(20px, 2.2vw, 24px);
 }
 
 .analysis-card--light {
+  min-width: 0;
   border-radius: var(--radius);
   background: #fcfcfc;
   border: 1px solid rgba(0, 0, 0, 0.03);
@@ -11740,10 +11852,11 @@ button {
 }
 
 .analysis-card__body {
-  padding: 24px;
+  padding: clamp(20px, 2.2vw, 24px);
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-width: 0;
 }
 
 .analysis-card__metric {
@@ -11800,6 +11913,22 @@ button {
   font-size: 15px;
   line-height: 1.45;
   color: #111;
+}
+
+/* 覆盖上方 .analysis-card__heading 的 display:block，保证拆分标题按整词换行 */
+.analysis-card__heading.analysis-card__heading--split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+}
+
+.analysis-card__heading.analysis-card__heading--split > span:not(.analysis-card__heading-sep) {
+  flex: 0 1 auto;
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  text-wrap: pretty;
 }
 
 .analysis-card__index {
@@ -11962,6 +12091,7 @@ button {
   font-size: 11px;
   line-height: 1.45;
   color: var(--text-muted);
+  max-width: 100%;
 }
 
 .project-section__figure img {
@@ -11974,21 +12104,22 @@ button {
 }
 
 .project-section--design .project-section__figure--design {
-  padding: 0 max(24px, calc((100vw - var(--max-width)) / 2 + 24px));
+  /* 与 design-section-header / project-content-inner 内容宽对齐，避免双重左右 padding */
+  padding: 0;
 }
 
 .project-section--design .project-section__figure--design img {
   width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
 }
 
 .design-slide-media {
   position: relative;
   line-height: 0;
   width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
 }
 
 .design-slide-media img {
