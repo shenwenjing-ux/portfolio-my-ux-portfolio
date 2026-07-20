@@ -594,8 +594,8 @@ export const projects = [
         designSectionTitle: '方案设计与效果评估',
         stickyStrategies: true,
         stickyMode: 'invite-title',
-        slides: makeSlidesFromPages([14, 15, 16, 17, 18, 19], '邀新活动商品迭代优化', '方案设计', 'jpg').map(
-          (slide) => ({ ...slide, src: `${slide.src}?v=black3` }),
+        slides: makeSlidesFromPages([14, 15, 16, 17, 18, 19], '邀新活动商品迭代优化', '方案设计', 'png').map(
+          (slide) => ({ ...slide, src: `${slide.src}?v=nobg1` }),
         ),
         designHeaders: [
           {
