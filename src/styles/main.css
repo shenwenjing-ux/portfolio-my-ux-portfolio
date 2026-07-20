@@ -1403,11 +1403,17 @@ button {
   overflow-wrap: anywhere;
   line-break: strict;
   text-wrap: pretty;
-  padding-right: 2px;
+  padding-right: 0;
 }
 
 .project-detail--bw .analysis-card__list li {
   max-width: 100%;
+  padding-right: 0;
+}
+
+/* 策略卡正文：略收左右内边距，避免长句只差数 px 挤出尴尬第二行 */
+.project-detail--bw .analysis-card--strategy .analysis-card__body {
+  padding: clamp(18px, 2vw, 20px);
 }
 
 .project-detail--bw .analysis-card--strategy .analysis-card__list {
