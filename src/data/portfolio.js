@@ -282,7 +282,7 @@ const p2TrustAfterStatic = {
 const p2TrustInteractiveDemo = {
   label: '鲜花商详 · 信任背书交互',
   hint: '悬停自动播放',
-  src: '/demos/pdp-p2-trust/index.html?v=12',
+  src: '/demos/pdp-p2-trust/index.html?v=13',
 };
 
 export const projects = [

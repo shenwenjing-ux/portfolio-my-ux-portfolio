@@ -11496,6 +11496,93 @@ button {
   transform: translateY(-6px);
 }
 
+/* 项目二首屏竖屏/窄屏：必须写在上方桌面样式之后，否则会被覆盖 */
+@media (max-width: 960px) {
+  .invite-hero {
+    padding: clamp(24px, 5vw, 36px) 0 clamp(28px, 6vw, 40px);
+    overflow: hidden;
+  }
+
+  .invite-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(20px, 4vw, 28px);
+    align-items: stretch;
+  }
+
+  .invite-hero__backdrop {
+    --invite-backdrop-h: clamp(200px, 52vw, 280px);
+    left: 0;
+    right: 0;
+  }
+
+  .invite-hero__copy {
+    order: 1;
+    padding-top: 0;
+    gap: clamp(14px, 3vw, 22px);
+  }
+
+  .invite-hero__eyebrow {
+    position: static;
+    margin: 0;
+  }
+
+  .invite-hero__title {
+    font-size: clamp(24px, 7vw, 34px);
+  }
+
+  .invite-hero__summary {
+    max-width: none;
+  }
+
+  .invite-hero__showcase {
+    order: 2;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: 100%;
+    max-width: min(360px, 100%);
+    margin-inline: auto;
+    margin-left: auto;
+    column-gap: clamp(8px, 2vw, 14px);
+    padding-bottom: clamp(8px, 2vw, 16px);
+  }
+
+  .invite-hero__device {
+    width: 100%;
+  }
+
+  .invite-hero__device--back {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+  }
+
+  .invite-hero__device--front {
+    grid-column: 2;
+    grid-row: 1;
+    width: 90%;
+    justify-self: end;
+  }
+
+  .invite-hero__device--back:hover,
+  .invite-hero__device--front:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .invite-hero__showcase {
+    max-width: min(300px, 92vw);
+  }
+
+  .invite-hero__copy .project-hero__tags {
+    gap: 6px;
+  }
+
+  .invite-hero__copy .project-hero__tag {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+}
+
 .project-detail--invite.project-detail--has-cover .project-section--background .background-panel {
   padding-top: clamp(20px, 3vw, 36px);
 }
@@ -12486,5 +12573,453 @@ button {
 
   .catalog-card__metrics {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ========== 移动端适配补强（仅 max-width，桌面样式不改） ==========
+ * 目录：标题满宽、数据左对齐
+ * 项目三：拆分双列选择器优先级高于旧 @media，须在此用更高优先级重申单列
+ */
+@media (max-width: 960px) {
+  /* 目录卡片 */
+  .catalog-card__body {
+    width: 100%;
+  }
+
+  .catalog-card__category,
+  .catalog-card__title,
+  .catalog-card__project,
+  .catalog-card__summary {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .catalog-card__metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-items: stretch;
+    gap: 8px;
+    text-align: left;
+  }
+
+  .catalog-card .mini-metric {
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .catalog-card .mini-metric__value {
+    justify-content: flex-start;
+  }
+
+  .catalog-card .mini-metric__value strong {
+    font-size: clamp(14px, 3.8vw, 17px);
+  }
+
+  .catalog-card .mini-metric__label {
+    text-align: left;
+    font-size: 10px;
+    line-height: 1.35;
+    overflow-wrap: break-word;
+  }
+
+  /* 项目三：整体防横向撑破 */
+  .project-detail--pdp {
+    --pdp-screen-w: min(152px, 42vw);
+    --pdp-strategy-thumb-w: min(152px, 42vw);
+    overflow-x: clip;
+  }
+
+  .project-detail--pdp .project-content,
+  .project-detail--pdp .project-section,
+  .project-detail--pdp .pdp-phase-two-module {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* 设计目标 / 核心目标：取消桌面 max-width，避免右侧空缺 */
+  .pdp-phase-two-module__goal--tier-secondary,
+  .pdp-phase-two-module__goal--tier-secondary dd,
+  .pdp-phase-two-module--detail .pdp-phase-two-module__goal--tier-secondary,
+  .pdp-phase-two-module--detail:has(.pdp-phase-two-module__split--trust) .pdp-phase-two-module__goal--tier-secondary,
+  .pdp-phase-two-module--detail:has(.pdp-phase-two-module__split--rows) .pdp-phase-two-module__goal--tier-secondary {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .pdp-phase-two-module__intro-group .pdp-phase-two-module__goal--tier-secondary {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  /* 双列 split-unit：必须压过桌面 .split--rows/.split--trust 的双列定义 */
+  .pdp-phase-two-split-unit,
+  .pdp-phase-two-module__split--rows .pdp-phase-two-split-unit,
+  .pdp-phase-two-module__split--trust .pdp-phase-two-split-unit {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    column-gap: 0;
+    row-gap: clamp(14px, 3vw, 20px);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pdp-phase-two-split-unit__copy,
+  .pdp-phase-two-split-unit__labels,
+  .pdp-phase-two-split-unit__visuals {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .pdp-phase-two-split-unit__labels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .pdp-phase-two-split-unit__labels .pdp-phase-two-compare__label {
+    width: auto;
+    flex: none;
+    max-width: none;
+  }
+
+  /* Before / After 机图：两列等分，避免截断 */
+  .pdp-phase-two-compare,
+  .pdp-phase-two-compare--trust,
+  .pdp-phase-two-split-unit__visuals .pdp-phase-two-compare {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    justify-content: stretch;
+  }
+
+  .pdp-phase-two-compare__column,
+  .pdp-phase-two-split-unit__visuals .pdp-phase-two-compare__column {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+    min-width: 0;
+  }
+
+  .pdp-phase-two-split-unit__visuals .pdp-phase-two-compare__column .pdp-screen-mockup,
+  .pdp-phase-two-split-unit__visuals .pdp-phase-two-compare__column .pdp-screen-mockup__viewport,
+  .pdp-phase-two-module__split--trust .pdp-phase-two-compare__column .pdp-screen-mockup,
+  .pdp-phase-two-module__split--trust .pdp-phase-two-compare__column .pdp-screen-mockup__viewport {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pdp-phase-two-split-unit__visuals .pdp-phase-two-compare__column .pdp-screen-mockup__viewport img,
+  .pdp-phase-two-module__split--trust .pdp-phase-two-compare__column .pdp-screen-mockup__viewport img,
+  .pdp-phase-two-module__split--trust .pdp-phase-two-compare__column .pdp-screen-mockup--design-flat .pdp-screen-mockup__viewport img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 策略文案：满宽，避免被挤成竖排一字 */
+  .pdp-phase-two-split-unit__copy .pdp-strategy-card,
+  .pdp-phase-two-split-unit__copy .pdp-strategy-card__title,
+  .pdp-phase-two-split-unit__copy .pdp-strategy-card__text,
+  .pdp-phase-two-split-unit__copy .pdp-phase-two-strategy-row__body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .pdp-phase-two-module__split--trust .pdp-phase-two-split-unit__copy .pdp-strategy-card__text,
+  .pdp-phase-two-module__split--trust .pdp-phase-two-strategy-list .pdp-strategy-card__text {
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  /* 全品类：鲜花 / 数码悬停 demo 两列等分 */
+  .pdp-phase-two-module__split--rows .pdp-phase-two-strategy-row__body:has(.pdp-phase-two-strategy-example--pair) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pdp-phase-two-module__split--rows .pdp-phase-two-strategy-row__body:has(.pdp-phase-two-strategy-example--pair) .pdp-strategy-card {
+    max-width: 100%;
+  }
+
+  .pdp-phase-two-strategy-example--pair,
+  .pdp-phase-two-strategy-example--flowers,
+  .pdp-phase-two-strategy-example--digital,
+  .pdp-phase-two-strategy-example--flowers .pdp-flowers-pdp,
+  .pdp-phase-two-strategy-example--pair .pdp-phase-two-strategy-example__img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pdp-phase-two-module__split--rows .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-examples {
+    flex-flow: row nowrap;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .pdp-phase-two-module__split--rows .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-example {
+    flex: 1 1 0;
+    width: auto;
+    max-width: none;
+  }
+
+  .pdp-phase-two-module__split--rows .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-example .pdp-screen-mockup,
+  .pdp-phase-two-module__split--rows .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-example .pdp-screen-mockup--flat .pdp-screen-mockup__viewport,
+  .pdp-phase-two-module__split--rows .pdp-phase-two-module__strategies--split .pdp-phase-two-strategy-example .pdp-screen-mockup--flat .pdp-screen-mockup__viewport img {
+    width: 100%;
+    max-width: none;
+  }
+
+  /* 数码结构化参数卡片：机图随容器缩放，文案在上、图在下 */
+  .pdp-phase-two-split-visual,
+  .pdp-phase-two-split-unit__visuals--demo .pdp-phase-two-split-visual {
+    width: 100%;
+    max-width: min(280px, 100%);
+    flex: none;
+  }
+
+  .pdp-phase-two-module__split--rows .pdp-digital-param-demo__stage,
+  .pdp-phase-two-module__split--rows .pdp-digital-param-demo__stage--visual,
+  .pdp-digital-param-demo-wrap {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pdp-phase-two-split-unit__visuals--demo {
+    justify-content: flex-start;
+  }
+
+  /* 1b/2：改版前问题区——文案在上、机图在下，避免 hover 图盖住文字 */
+  .pdp-before-problems__stage {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    overflow: visible;
+  }
+
+  .pdp-before-problems__copy {
+    z-index: 3;
+    order: 1;
+  }
+
+  .pdp-before-problems__shots {
+    z-index: 1;
+    order: 2;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pdp-before-problems__shots-rail {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .pdp-before-problems__shot,
+  .pdp-before-problems__shot img {
+    flex-basis: min(148px, 42vw);
+    width: min(148px, 42vw);
+  }
+
+  .pdp-before-problems__category-extras-inner {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pdp-before-problems__category-block {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: none;
+  }
+
+  .pdp-before-problems__category-block.is-visible {
+    height: auto;
+    margin: 0;
+    padding: 12px 14px;
+    border-left: 3px solid var(--pdp-accent);
+    box-shadow: 0 4px 14px rgba(31, 31, 36, 0.08);
+    opacity: 1;
+    overflow: visible;
+    pointer-events: auto;
+  }
+
+  /* 3：策略一 trust-flow 五图——统一上下间距（须双类选择器压过桌面） */
+  .pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow {
+    --pdp-trust-phone-w: min(200px, 56vw);
+    --pdp-trust-panel-w: min(200px, 56vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    min-height: 0;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 8px 0 16px;
+  }
+
+  .pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card,
+  .pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--hero-danmaku,
+  .pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition,
+  .pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition-sheet,
+  .pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--review,
+  .pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--reviews-landing {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin: 0;
+    width: var(--pdp-trust-phone-w);
+    max-width: 100%;
+  }
+
+  .pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--nutrition-sheet,
+  .pdp-framework__stagger-stage.pdp-framework__stagger-stage--trust-flow .pdp-framework__stagger-card--reviews-landing {
+    width: var(--pdp-trust-panel-w);
+    margin-top: 0;
+  }
+
+  /* 4：三类品类 tab 与右侧 Before/After 两图同宽，可点击不被挡 */
+  .pdp-scheme-explorer {
+    --pdp-scheme-device-w: min(120px, 28vw);
+    overflow: visible;
+  }
+
+  .pdp-scheme-explorer__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'wire before after'
+      'wire tabs tabs';
+    column-gap: 6px;
+    row-gap: 10px;
+    align-items: start;
+  }
+
+  .pdp-scheme-explorer__column--wireframe {
+    grid-area: wire;
+  }
+
+  .pdp-scheme-explorer__column--before {
+    grid-area: before;
+  }
+
+  .pdp-scheme-explorer__column--after {
+    grid-area: after;
+  }
+
+  .pdp-scheme-explorer__tabs {
+    grid-area: tabs;
+    grid-column: before / after;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    padding-top: 0;
+    position: relative;
+    z-index: 6;
+    pointer-events: auto;
+  }
+
+  .pdp-scheme-explorer__tab {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 8px 6px;
+    transform: none;
+    position: relative;
+    z-index: 6;
+    pointer-events: auto;
+  }
+
+  .pdp-scheme-explorer__tab:not(.is-active):hover,
+  .pdp-scheme-explorer__tab:not(.is-active):focus-visible {
+    transform: none;
+  }
+
+  .pdp-scheme-explorer__tab-label {
+    font-size: 12px;
+  }
+
+  .pdp-scheme-explorer__column-label {
+    width: 100%;
+  }
+
+  .pdp-scheme-explorer__shot-stack,
+  .pdp-scheme-explorer__device {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* 5：策略三信任 demo——与机模同宽，去掉外圈白底 */
+  .pdp-phase-two-module__visuals--trust-demo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+    width: 100%;
+    max-width: 100%;
+    justify-items: center;
+    overflow: visible;
+  }
+
+  .pdp-phase-two-module__visuals--trust-demo .pdp-trust-interactive-demo {
+    grid-column: 1;
+    justify-self: center;
+    width: min(260px, 92vw);
+    max-width: 100%;
+  }
+
+  .pdp-phase-two-module__visuals--trust-demo .pdp-trust-interactive-demo__frame {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 472 / 1024;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-detail--pdp {
+    --pdp-screen-w: min(140px, 40vw);
+    --pdp-strategy-thumb-w: min(140px, 40vw);
+  }
+
+  .pdp-phase-two-strategy-example__hint {
+    display: inline;
+  }
+
+  .pdp-phase-two-strategy-example__label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 6px;
+    max-width: 100%;
   }
 }

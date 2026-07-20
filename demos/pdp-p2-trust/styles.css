@@ -6,11 +6,14 @@ body {
 
 .trust-phone {
   position: relative;
+  width: 100% !important;
+  max-width: 100%;
   margin: 0 auto;
   overflow: hidden;
   border-radius: 16px;
   background: #fff;
   aspect-ratio: 472 / 1024;
+  box-shadow: 0 8px 28px rgba(31, 31, 36, 0.08);
 }
 
 .trust-view {
